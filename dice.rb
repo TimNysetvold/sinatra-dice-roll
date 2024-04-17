@@ -4,11 +4,7 @@ require "sinatra"
 require "sinatra/reloader"
 
 get("/") do
-  "<h2>Welcome to the Dice Rolling Extravaganza</h2>
-  <ul>
-    <li><a href=\"/dice/2/6\">Roll two 6-sided dice</a></li>
-    <li><a href=\"/dice/2/10\">Roll two 10-sided dice</a></li>
-</ul>"
+  erb(:elephant)
 end
 
 get("/zebra") do
@@ -17,17 +13,6 @@ end
 
 get("/giraffe") do
   "Hopefully this shows up without having to restart the server 🤞🏾"
-end
-
-get("/dice/2/6") do
-  first_die = rand(1..6)
-  second_die = rand(1..6)
-  sum = first_die + second_die
-	
-  outcome = "You rolled a #{first_die} and a #{second_die} for a total of #{sum}."
-	
-  "<h1>2d6</h1>
-   <p>#{outcome}</p>"
 end
 
  get("/dice/2/10") do
@@ -40,3 +25,13 @@ end
   "<h2>2d10</h2>
    <p>#{outcome}</p>"
  end
+
+ get("/dice/2/6") do
+  first_die = rand(1..6)
+  second_die = rand(1..6)
+  sum = first_die + second_die
+	
+  @outcome = "You rolled a #{first_die} and a #{second_die} for a total of #{sum}."
+	
+  erb(:two_six, { :layout => :wrapper })
+end
